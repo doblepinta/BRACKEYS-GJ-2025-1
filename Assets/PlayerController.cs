@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
         bool move = false;
         if (Input.GetAxisRaw("Vertical") == 1)
         {
-            transform.Translate(Vector3.up * speed * Time.deltaTime);
+            transform.Translate(Vector3.up * speed * Time.fixedDeltaTime);
             anim.SetFloat("y", 1);
             anim.SetFloat("x", 0);
             anim.SetBool("isWalking", true);
@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetAxisRaw("Vertical") == -1)
         {
-            transform.Translate(Vector3.down * speed * Time.deltaTime);
+            transform.Translate(Vector3.down * speed * Time.fixedDeltaTime);
             anim.SetFloat("y", -1);
             anim.SetFloat("x", 0);
             anim.SetBool("isWalking", true);
@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetAxisRaw("Horizontal") == 1)
         {
-            transform.Translate(Vector3.right * speed * Time.deltaTime);
+            transform.Translate(Vector3.right * speed * Time.fixedDeltaTime);
             anim.SetFloat("x", 1);
             anim.SetFloat("y", 0);
             anim.SetBool("isWalking", true);
@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetAxisRaw("Horizontal") == -1)
         {
-            transform.Translate(Vector3.left * speed * Time.deltaTime);
+            transform.Translate(Vector3.left * speed * Time.fixedDeltaTime);
             anim.SetFloat("x", -1);
             anim.SetFloat("y", 0);
             anim.SetBool("isWalking", true);
