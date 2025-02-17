@@ -70,8 +70,8 @@ public class Product : MonoBehaviour
 
     public void Fire()
     {
-        float randomX = Random.Range(-0.5f, 0.5f);
-        float randomY = Random.Range(-0.5f, 0.5f);
+        float randomX = Random.Range(-0.25f, 0.25f);
+        float randomY = Random.Range(-0.25f, 0.25f);
 
         GameObject fireParticle = (GameObject)Instantiate(fireParticlePrefab, transform.position + new Vector3(randomX, randomY, 0), transform.rotation, this.gameObject.transform);
         Destroy(fireParticle, 1f);
