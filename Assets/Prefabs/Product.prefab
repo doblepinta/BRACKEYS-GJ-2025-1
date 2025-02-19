@@ -78,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 52b1f2a7e4aedc44eaf40ad89d79d70c, type: 3}
   m_Color: {r: 0.990566, g: 0.990566, b: 0.990566, a: 1}
   m_FlipX: 0
@@ -150,10 +150,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onFire: 0
   life: 1
-  fireDamage: 0.005
+  fireDamage: 0.0025
   fireParticlePrefab: {fileID: 1161714821107953764, guid: 464bdbf7487d5ef49be1ef0114e3020a, type: 3}
   counter: 0
-  counterInc: 0.5
+  counterInc: 0.05
+  onMovement: 0
 --- !u!50 &4414131519717680304
 Rigidbody2D:
   serializedVersion: 5
@@ -180,4 +181,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4

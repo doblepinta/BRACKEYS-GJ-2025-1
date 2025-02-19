@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Product : MonoBehaviour
 {
@@ -11,13 +12,29 @@ public class Product : MonoBehaviour
 
     public float counter = 0;
     public float counterInc = 0.1f;
+    
+    public bool onMovement = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        //OnMovement();
+        Destroy(this.gameObject,20f);
     }
 
+    public void OnMovement()
+    {
+        StopCoroutine("OnMovementCoroutine");
+        StartCoroutine("OnMovementCoroutine");
+    }
+    IEnumerator OnMovementCoroutine()
+    {
+        yield return new WaitForSeconds(2f);
+        if (!onMovement)
+        {
+            Destroy(this.gameObject);
+        }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -28,6 +45,10 @@ public class Product : MonoBehaviour
             life = 1;
             counter = 0;
             CancelInvoke("Fire");
+
+            GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+            GetComponent<SpriteRenderer>().sortingOrder = 2;
+
             GetComponent<Renderer>().material.color = Color.white;
 
             Transform[] fireParticles = new Transform[transform.childCount];
@@ -49,29 +70,31 @@ public class Product : MonoBehaviour
                 Destroy(this.gameObject);
             }
         }
-
-
-        if (transform.position.y < -5f)
-        {
-            Destroy(this.gameObject);
-        }
     }
-
-    public void OnMouseDown()
+    private void OnMouseOver()
     {
-        counter += counterInc;
+        if (Vector3.Distance(transform.position, FindFirstObjectByType<PlayerController>().transform.position)< FindFirstObjectByType<PlayerController>().range)
+        {
+            if (Input.GetMouseButton(0))
+            {
+                counter += counterInc;
+            }
+        }
+        Debug.Log(Vector3.Distance(transform.position, FindFirstObjectByType<PlayerController>().transform.position));
     }
 
     public void StartFire()
     {
         onFire = true;
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
+        GetComponent<SpriteRenderer>().sortingOrder = 3;
         InvokeRepeating("Fire", 0, 0.5f);
     }
 
     public void Fire()
     {
-        float randomX = Random.Range(-0.25f, 0.25f);
-        float randomY = Random.Range(-0.25f, 0.25f);
+        float randomX = Random.Range(-0.2f, 0.2f);
+        float randomY = Random.Range(-0.2f, 0.2f);
 
         GameObject fireParticle = (GameObject)Instantiate(fireParticlePrefab, transform.position + new Vector3(randomX, randomY, 0), transform.rotation, this.gameObject.transform);
         Destroy(fireParticle, 1f);

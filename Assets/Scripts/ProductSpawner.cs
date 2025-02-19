@@ -48,7 +48,7 @@ public class ProductSpawner : MonoBehaviour
 
             if (machineB_Opened)
             {
-                yield return new WaitForSeconds(spawnDelay[1]);
+                //yield return new WaitForSeconds(spawnDelay[1]);
                 SpawnProduct(1);
             }
 
