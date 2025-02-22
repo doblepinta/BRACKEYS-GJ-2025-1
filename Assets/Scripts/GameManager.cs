@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     public int machineOnFire = 0;
     public int level;
     public int machines = 1;
+    public int destroyedMachine = 0;
+
 
     public int boxCounter = 0;
     public TextMeshProUGUI boxCounterText;
@@ -83,6 +85,32 @@ public class GameManager : MonoBehaviour
         {
             machine.OffFire();
         }
+    }
+
+    public void DestroyedMachine()
+    {
+        destroyedMachine++; 
+        if (level == 1)
+        {
+            FindFirstObjectByType<LevelChanger>().FadeToLevel(1);
+        }
+        else if (level == 2)
+        {
+            FindFirstObjectByType<LevelChanger>().FadeToLevel(2);
+        }
+        else if (level == 3)
+        {
+            FindFirstObjectByType<LevelChanger>().FadeToLevel(3);
+        }
+        else if (level == 4)
+        {
+            FindFirstObjectByType<LevelChanger>().FadeToLevel(4);
+        }
+        else if (level == 5)
+        {
+            FindFirstObjectByType<LevelChanger>().FadeToLevel(5);
+        }
+
     }
     public void IncLevelUp()
     {

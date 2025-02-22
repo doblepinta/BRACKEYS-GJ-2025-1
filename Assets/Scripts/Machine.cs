@@ -104,6 +104,7 @@ public class Machine : MonoBehaviour
 
             if (life <= 0)
             {
+                FindFirstObjectByType<GameManager>().DestroyedMachine();
                 Destroy(fireParticleHolder.gameObject);
                 Destroy(this.gameObject);
             }
