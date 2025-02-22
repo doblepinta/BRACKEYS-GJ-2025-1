@@ -96,7 +96,7 @@ public class Product : MonoBehaviour
         float randomX = Random.Range(-0.2f, 0.2f);
         float randomY = Random.Range(-0.2f, 0.2f);
 
-        GameObject fireParticle = (GameObject)Instantiate(fireParticlePrefab, transform.position + new Vector3(randomX, randomY, 0), transform.rotation, this.gameObject.transform);
+        GameObject fireParticle = (GameObject)Instantiate(fireParticlePrefab, transform.position + new Vector3(randomX, randomY, 0), transform.rotation,GameObject.FindGameObjectWithTag("ProductFireParticleHolder").transform);
         Destroy(fireParticle, 1f);
     }
 }

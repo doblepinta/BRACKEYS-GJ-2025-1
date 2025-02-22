@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
@@ -16,16 +16,53 @@ public class PlayerController : MonoBehaviour
     public Transform extinguisherPartToRotate;
 
     private Camera cam;
+    public float camSpeed = 0.05f;
+    public float camMaxValue = 5f;
+
+    public bool leveled = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         cam = Camera.main;
     }
-
+    IEnumerator CamCoroutine()
+    {
+        while (cam.orthographicSize <= camMaxValue)
+        {
+            cam.orthographicSize += camSpeed;
+            yield return new WaitForSeconds(0.05f);
+        }
+        if(FindFirstObjectByType<GameManager>().level == 1)
+        {
+            FindFirstObjectByType<LevelChanger>().FadeToLevel(2);
+        }
+        else if (FindFirstObjectByType<GameManager>().level == 2)
+        {
+            FindFirstObjectByType<LevelChanger>().FadeToLevel(3);
+        }
+        else if (FindFirstObjectByType<GameManager>().level == 3)
+        {
+            FindFirstObjectByType<LevelChanger>().FadeToLevel(4);
+        }
+        else if (FindFirstObjectByType<GameManager>().level == 4)
+        {
+            FindFirstObjectByType<LevelChanger>().FadeToLevel(5);
+        }
+        else if (FindFirstObjectByType<GameManager>().level == 5)
+        {
+            FindFirstObjectByType<LevelChanger>().FadeToLevel(6);
+        }
+    }
     // Update is called once per frame
     void Update()
     {
+        if (FindFirstObjectByType<GameManager>().levelComplete && !leveled)
+        {
+            leveled = true;
+            StartCoroutine("CamCoroutine");
+            return;
+        }
 
         if (Input.GetMouseButton(0))
         {
@@ -50,7 +87,7 @@ public class PlayerController : MonoBehaviour
 
 
             Vector3 rotation = lookRotation.eulerAngles;
-            Debug.Log(rotation);
+            //Debug.Log(rotation);
             // Vector3 rotation = Quaternion.Lerp(extinguisherPartToRotate.rotation, lookRotation, turnSpeed * Time.deltaTime).eulerAngles;
 
             rotation.z *= -1; 
